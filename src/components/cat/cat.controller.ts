@@ -1,5 +1,13 @@
 import { CatResponse } from './response/cat.response';
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ObjectId } from 'mongodb';
 import { CatService } from './cat.service';
 import { CatRequest } from './request/cat.request';
@@ -32,5 +40,10 @@ export class CatController {
     @Body() catRequest: CatRequest,
   ): Promise<CatResponse> {
     return this.catService.update(new ObjectId(id), catRequest);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<void> {
+    await this.catService.delete(new ObjectId(id));
   }
 }

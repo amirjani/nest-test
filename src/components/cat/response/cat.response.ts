@@ -14,8 +14,8 @@ export class CatResponse {
   age: number;
 
   @Expose()
-  createdAt: Date;
+  createdAt?: Date;
 
   @Expose()
-  updatedAt: Date;
+  updatedAt?: Date;
 }
