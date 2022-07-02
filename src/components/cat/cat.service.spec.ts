@@ -1,22 +1,22 @@
-import { CatRepository } from './cat.repository';
-import { Test, TestingModule } from '@nestjs/testing';
-import { ObjectId } from 'mongodb';
-import { CatService } from './cat.service';
-import { CatResponse } from './response/cat.response';
+import { CatRepository } from "./cat.repository";
+import { Test, TestingModule } from "@nestjs/testing";
+import { ObjectId } from "mongodb";
+import { CatService } from "./cat.service";
+import { CatResponse } from "./response/cat.response";
 
-describe('Cat Service', () => {
+describe("Cat Service", () => {
   let catService: CatService;
   const catResponseInstance: CatResponse[] = [
     {
-      _id: new ObjectId('62bc1b1c92e1568d308d393c'),
-      name: 'first test',
+      _id: new ObjectId("62bc1b1c92e1568d308d393c"),
+      name: "first test",
       age: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
     {
-      _id: new ObjectId('62bc1b1c92e1568d308d393a'),
-      name: 'second test',
+      _id: new ObjectId("62bc1b1c92e1568d308d393a"),
+      name: "second test",
       age: 2,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -43,12 +43,12 @@ describe('Cat Service', () => {
     catService = moduleRef.get<CatService>(CatService);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(catService).toBeDefined();
   });
 
-  describe('findAll', () => {
-    it('should return an array of cats', async () => {
+  describe("findAll", () => {
+    it("should return an array of cats", async () => {
       const cats = await catService.findAll();
 
       expect(cats).toBeInstanceOf(Array);
@@ -58,8 +58,8 @@ describe('Cat Service', () => {
     });
   });
 
-  describe('findOne', () => {
-    it('should return a cat', async () => {
+  describe("findOne", () => {
+    it("should return a cat", async () => {
       const cat = await catService.findOne(catResponseInstance[0]._id);
       expect(cat).toBeInstanceOf(Object);
       expect(cat.createdAt).toBeInstanceOf(Date);
@@ -68,8 +68,8 @@ describe('Cat Service', () => {
     });
   });
 
-  describe('create', () => {
-    it('should create a cat', async () => {
+  describe("create", () => {
+    it("should create a cat", async () => {
       const cat = await catService.create(catResponseInstance[0]);
       expect(cat).toBeInstanceOf(Object);
       expect(cat.createdAt).toBeInstanceOf(Date);
@@ -78,11 +78,11 @@ describe('Cat Service', () => {
     });
   });
 
-  describe('update', () => {
-    it('should update a cat', async () => {
+  describe("update", () => {
+    it("should update a cat", async () => {
       const cat = await catService.update(
         catResponseInstance[0]._id,
-        catResponseInstance[0],
+        catResponseInstance[0]
       );
       expect(cat).toBeInstanceOf(Object);
       expect(cat.createdAt).toBeInstanceOf(Date);
@@ -91,8 +91,8 @@ describe('Cat Service', () => {
     });
   });
 
-  describe('delete', () => {
-    it('should delete a cat', async () => {
+  describe("delete", () => {
+    it("should delete a cat", async () => {
       const cat = await catService.delete(catResponseInstance[0]._id);
       expect(cat).toEqual(undefined);
     });

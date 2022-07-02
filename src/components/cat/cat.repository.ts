@@ -1,16 +1,17 @@
-import { Injectable } from '@nestjs/common';
-import { Collection, ObjectId } from 'mongodb';
-import { InjectCollection } from 'nest-mongodb';
-import { Cat } from './entity/cat.entity';
+import { Injectable } from "@nestjs/common";
+import { Collection, ObjectId } from "mongodb";
+import { InjectCollection } from "nest-mongodb";
+import { Cat } from "./entity/cat.entity";
 
 @Injectable()
 export class CatRepository {
   constructor(
-    @InjectCollection(Cat.name) private readonly catCollection: Collection<Cat>,
+    @InjectCollection(Cat.name) private readonly catCollection: Collection<Cat>
   ) {}
 
   async findAll(): Promise<Cat[]> {
-    return this.catCollection.find().toArray();
+    const catResult = this.catCollection.find();
+    return catResult.toArray();
   }
 
   async findOne(id: ObjectId): Promise<Cat> {
@@ -23,7 +24,10 @@ export class CatRepository {
   }
 
   async update(id: ObjectId, cat: Cat): Promise<Cat> {
-    return (await this.catCollection.findOneAndUpdate({ _id: id }, cat)).value;
+    const result = await (
+      await this.catCollection.findOneAndUpdate({ _id: id }, cat)
+    ).value;
+    return result;
   }
 
   async delete(id: ObjectId): Promise<void> {
